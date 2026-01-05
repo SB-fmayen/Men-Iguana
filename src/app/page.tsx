@@ -8,9 +8,9 @@ export default function Home() {
       <header className="py-12 md:py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="font-headline font-bold italic text-5xl md:text-7xl tracking-tighter">
-            Iguana Menu
+            Menú Tecinteca
           </h1>
-          <p className="mt-4 text-lg text-muted-foreground">Fresh from the jungle kitchen</p>
+          <p className="mt-4 text-lg text-muted-foreground">Delicias para todos los gustos</p>
         </div>
       </header>
       

@@ -1,27 +1,30 @@
 import type { MenuItem } from '@/lib/menu-data';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface MenuItemCardProps {
   item: MenuItem;
 }
 
 const formatPrice = (price: number) => {
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('es-GT', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'GTQ',
   }).format(price);
 };
 
 export function MenuItemCard({ item }: MenuItemCardProps) {
   return (
     <Card className="flex flex-col h-full rounded-lg border-2 border-black shadow-[6px_6px_0_#000] hover:shadow-[8px_8px_0_#000] transition-all duration-200 bg-white">
-      <CardHeader className="flex-grow">
+      <CardHeader className="flex-grow pb-2">
         <CardTitle className="font-headline font-bold text-xl">{item.name}</CardTitle>
       </CardHeader>
-      {item.options && item.options.length > 0 && (
-        <CardContent className="pt-0 pb-4 flex-grow-0">
-          <div className="space-y-2">
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Extras</h4>
+      <CardContent className="flex-grow">
+        {item.description && (
+          <CardDescription>{item.description}</CardDescription>
+        )}
+        {item.options && item.options.length > 0 && (
+          <div className="space-y-2 mt-4">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Opciones</h4>
             <ul className="space-y-1">
               {item.options.map((option) => (
                 <li key={option.name} className="flex justify-between text-sm">
@@ -31,8 +34,8 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
               ))}
             </ul>
           </div>
-        </CardContent>
-      )}
+        )}
+      </CardContent>
       <div className="p-4 pt-0 mt-auto">
         <div className="bg-primary rounded-md text-center py-2">
             <p className="text-xl font-bold font-headline text-primary-foreground">{formatPrice(item.price)}</p>
