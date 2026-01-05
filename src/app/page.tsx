@@ -1,11 +1,14 @@
 import { menuData } from '@/lib/menu-data';
 import { MenuItemCard } from '@/components/menu-item-card';
 import { QrCode } from '@/components/qr-code';
+import { MenuHeader } from '@/components/menu-header';
 
 export default function Home() {
   return (
     <div className="bg-background min-h-screen">
-      <header className="py-12 md:py-16">
+      <MenuHeader />
+      
+      <header className="py-12 md:py-16 bg-gray-50">
         <div className="container mx-auto px-4 text-center">
           <h1 className="font-headline font-bold italic text-5xl md:text-7xl tracking-tighter">
             Menú Tecinteca
@@ -17,10 +20,10 @@ export default function Home() {
       <main className="container mx-auto px-4 pb-16 md:pb-24">
         <div className="space-y-16">
           {menuData.map((category) => (
-            <section key={category.name} aria-labelledby={`category-${category.name}`}>
+            <section key={category.name} id={`category-${category.name}`} className="pt-16 -mt-16" aria-labelledby={`category-title-${category.name}`}>
               <div className="flex items-center gap-4 mb-8">
                 <category.icon className="w-8 h-8 md:w-10 md:h-10 text-primary" strokeWidth={2.5} />
-                <h2 id={`category-${category.name}`} className="font-headline font-bold text-3xl md:text-4xl text-black">
+                <h2 id={`category-title-${category.name}`} className="font-headline font-bold text-3xl md:text-4xl text-black">
                   {category.name}
                 </h2>
               </div>

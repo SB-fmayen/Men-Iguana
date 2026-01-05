@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 export function QrCode() {
-  const menuUrl = "https://example.com/tecinteca-menu";
+  const menuUrl = "https://menutecinteca.app";
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(menuUrl)}&qzone=1&color=000000&bgcolor=C0FF33&format=svg`;
 
   return (
