@@ -1,0 +1,89 @@
+/**
+ * Core Philosophy: This ruleset establishes a "public catalog" model. All menu and category
+ * information is intended to be publicly readable by any client, including unauthenticated
+ * visitors. This facilitates easy browsing of the menu without requiring a user to sign in.
+ *
+ * Data Structure: The data is organized into two separate, top-level collections: `/categories`
+ * for menu sections and `/menu_items` for individual food items. This flat structure is simple,
+ * performant, and avoids complex relational queries at the rules level.
+ *
+ * Key Security Decisions:
+ * - Public Read Access: All data in `/categories` and `/menu_items` is world-readable.
+ *   `get` and `list` operations are permitted for everyone.
+ * - Administrative Writes (Locked): All write operations (`create`, `update`, `delete`) are
+ *   currently denied (`if false;`). The data model does not yet include a concept of user
+ *   roles or ownership. These rules are locked down as a secure default, pending the
+ *   implementation of an administrative role system (e.g., a `roles` collection or custom claims).
+ *   A placeholder `isAdmin()` function is provided to show where this logic should be added.
+ *
+ * Denormalization for Authorization: Not currently applicable as the data model is public. If
+ * user-specific features are added, data required for authorization (like an `ownerId`) should be
+ * denormalized onto the relevant documents.
+ *
+ * Structural Segregation: The use of separate `/categories` and `/menu_items` collections is a
+ * deliberate choice. It provides a more secure and performant way to manage public data compared
+ * to mixing public and private documents in a single collection.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ------------------------------------------------------------------------
+    // Helper Functions
+    // ------------------------------------------------------------------------
+
+    /**
+     * Placeholder for admin role verification.
+     * TODO: Implement admin role checking, for example by checking a custom claim
+     * (request.auth.token.admin == true) or looking up a document in a roles collection.
+     */
+    function isAdmin() {
+      // Deny all administrative writes until a proper role system is implemented.
+      return false;
+    }
+    
+    /**
+     * Placeholder for admin checks on existing documents. Ensures the document exists before
+     * allowing a modification or deletion.
+     */
+    function isExistingAdmin() {
+      return isAdmin() && resource != null;
+    }
+
+    // ------------------------------------------------------------------------
+    // Collection Rules
+    // ------------------------------------------------------------------------
+
+    /**
+     * @description Manages menu categories. All users can read categories, but only
+     *              admins (currently disabled) can write them.
+     * @path /categories/{categoryId}
+     * @allow (get) An unauthenticated user reads a single category document.
+     * @deny (create) Any user, authenticated or not, attempts to create a new category.
+     * @principle Publicly readable data with administrative write protection.
+     */
+    match /categories/{categoryId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if isAdmin();
+      allow update: if isExistingAdmin();
+      allow delete: if isExistingAdmin();
+    }
+
+    /**
+     * @description Manages individual menu items. All users can read menu items, but only
+     *              admins (currently disabled) can write them.
+     * @path /menu_items/{menuItemId}
+     * @allow (list) An unauthenticated user lists all available menu items.
+     * @deny (update) Any user, authenticated or not, attempts to modify a menu item.
+     * @principle Publicly readable data with administrative write protection.
+     */
+    match /menu_items/{menuItemId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if isAdmin();
+      allow update: if isExistingAdmin();
+      allow delete: if isExistingAdmin();
+    }
+  }
+}

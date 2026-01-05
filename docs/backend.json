@@ -1,0 +1,121 @@
+{
+  "entities": {
+    "MenuItem": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "MenuItem",
+      "type": "object",
+      "description": "Represents a single item on the menu.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the menu item."
+        },
+        "categoryId": {
+          "type": "string",
+          "description": "Reference to Category. (Relationship: Category 1:N MenuItem)"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the menu item."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the menu item."
+        },
+        "price": {
+          "type": "number",
+          "description": "The price of the menu item.",
+          "format": "float"
+        },
+        "options": {
+          "type": "string",
+          "description": "Available options or extras for the menu item (e.g., size, toppings)."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the image of the menu item.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "categoryId",
+        "name",
+        "description",
+        "price"
+      ]
+    },
+    "Category": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Category",
+      "type": "object",
+      "description": "Represents a category of menu items (e.g., Appetizers, Entrees, Desserts).",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the category."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the category."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the category."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the image representing the category.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/categories/{categoryId}",
+        "definition": {
+          "entityName": "Category",
+          "schema": {
+            "$ref": "#/backend/entities/Category"
+          },
+          "description": "Stores information about menu categories.",
+          "params": [
+            {
+              "name": "categoryId",
+              "description": "The unique identifier for the category."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/menu_items/{menuItemId}",
+        "definition": {
+          "entityName": "MenuItem",
+          "schema": {
+            "$ref": "#/backend/entities/MenuItem"
+          },
+          "description": "Stores information about individual menu items.",
+          "params": [
+            {
+              "name": "menuItemId",
+              "description": "The unique identifier for the menu item."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to be simple and scalable for managing menu items and categories. It leverages structural segregation by placing categories and menu items in separate top-level collections. This design eliminates the need for complex queries or security rules involving parent-child relationships, enhancing both performance and security. This structure also allows us to easily implement hosting with Firebase.\n\nAuthorization Independence: Authorization is not a major concern in this data model since we do not need private data. Access to data can be public. However, if admin roles are added later, a separate `/roles_admin/{uid}` collection can be added.\n\nQAPs: The structure supports listing all categories and menu items efficiently, fulfilling the 'QAPs' principle. Security rules can be straightforward, granting read access to all users or restricting write access to authorized admins (if added)."
+  }
+}
