@@ -14,14 +14,6 @@ export function CategoriesShowcase() {
             <h2 className="text-4xl md:text-5xl font-bold text-black-700">
               MENÚ
             </h2>
-            <Link href="/#menu-section">
-              <Button 
-                variant="ghost"
-                className="text-black-700 font-bold text-lg hover:bg-black-50"
-              >
-                VER TODO →
-              </Button>
-            </Link>
           </div>
         </ScrollReveal>
 

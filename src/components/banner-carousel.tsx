@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { ScrollReveal } from '@/components/scroll-reveal';
 
 interface BannerSlide {
@@ -16,30 +15,30 @@ interface BannerSlide {
 const bannerSlides: BannerSlide[] = [
   {
     id: 1,
-    title: 'Pizzas Deliciosas',
-    description: 'Nuestras mejores pizzas con ingredientes frescos',
-    image: '🍕',
-    color: 'from-orange-400 to-orange-600'
+    title: '',
+    description: '',
+    image: '/Baner 1.png',
+    color: 'from-purple-400 to-indigo-600'
   },
   {
     id: 2,
-    title: 'Shukos Sabrosos',
-    description: 'Los mejores shukos de la zona',
-    image: '🌮',
-    color: 'from-red-400 to-red-600'
+    title: 'Pizzas Deliciosas',
+    description: 'Nuestras mejores pizzas con ingredientes frescos',
+    image: '/Baner 1.png',
+    color: 'from-orange-400 to-orange-600'
   },
   {
     id: 3,
-    title: 'Promociones Especiales',
-    description: 'Descuentos increíbles este mes',
-    image: '🎉',
-    color: 'from-yellow-400 to-orange-500'
+    title: 'Shukos Sabrosos',
+    description: 'Los mejores shukos de la zona',
+    image: '/Baner 1.png',
+    color: 'from-red-400 to-red-600'
   },
   {
-    id: 4,
+    id: 5,
     title: 'Entradas y Más',
     description: 'Complementa tu pedido con nuestras delicias',
-    image: '🍗',
+    image: '/Baner 1.png',
     color: 'from-amber-400 to-orange-600'
   }
 ];
@@ -77,8 +76,11 @@ export function BannerCarousel() {
     <ScrollReveal fullWidth>
       <div className="relative w-full overflow-hidden bg-black">
         {/* Carousel Container */}
-        <div className="relative h-96 md:h-[500px] lg:h-[600px] w-full">
-          {bannerSlides.map((slide, index) => (
+        <div className="relative w-full aspect-[16/6] md:aspect-[16/5] lg:aspect-[16/5] min-h-[320px]">
+          {bannerSlides.map((slide, index) => {
+            const hasImageFile = slide.image.includes('/') || slide.image.includes('.');
+
+            return (
           <div
             key={slide.id}
             className={`absolute inset-0 transition-opacity duration-1000 ${
@@ -93,21 +95,42 @@ export function BannerCarousel() {
               </div>
 
               {/* Content */}
-              <div className="relative z-10 text-center px-4 max-w-2xl">
-                <div className="text-8xl md:text-9xl mb-6">{slide.image}</div>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-                  {slide.title}
-                </h2>
-                <p className="text-lg md:text-xl text-white/90 drop-shadow-md mb-8">
-                  {slide.description}
-                </p>
-                <Button className="bg-white text-orange-600 hover:bg-gray-100 font-bold px-8 py-6 text-lg rounded-lg">
-                  Ver Menú
-                </Button>
+              <div className="relative z-10 flex h-full w-full items-center justify-center px-0">
+                {hasImageFile ? (
+                  <div className="relative h-full w-full flex items-center justify-center">
+                    <img
+                      src={slide.image}
+                      alt={slide.title}
+                      className="h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/10" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-center px-6 md:px-10 max-w-5xl">
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+                          {slide.title}
+                        </h2>
+                        <p className="text-lg md:text-xl text-white/90 drop-shadow-md mb-8">
+                          {slide.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="relative text-center px-4 w-full max-w-7xl mx-auto">
+                    <div className="text-8xl md:text-9xl mb-6">{slide.image}</div>
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+                      {slide.title}
+                    </h2>
+                    <p className="text-lg md:text-xl text-white/90 drop-shadow-md mb-8">
+                      {slide.description}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
-        ))}
+        );
+        })}
       </div>
 
       {/* Navigation Buttons */}

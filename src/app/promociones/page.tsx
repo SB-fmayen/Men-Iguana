@@ -1,5 +1,5 @@
 import { MenuHeader } from '@/components/menu-header';
-import { QrCode } from '@/components/qr-code';
+import { Footer } from '@/components/footer';
 import { Gift, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -178,9 +178,7 @@ export default function PromotionsPage() {
         </div>
       </main>
 
-        <footer className="w-full">
-          <QrCode />
-        </footer>
+        <Footer />
       </div>
     </PageTransition>
   );

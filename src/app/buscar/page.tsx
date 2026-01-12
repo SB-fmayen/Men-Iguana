@@ -1,7 +1,7 @@
 'use client';
 
 import { MenuHeader } from '@/components/menu-header';
-import { QrCode } from '@/components/qr-code';
+import { Footer } from '@/components/footer';
 import { MenuItemCard } from '@/components/menu-item-card';
 import { menuData } from '@/lib/menu-data';
 import { useSearchParams } from 'next/navigation';
@@ -89,9 +89,7 @@ export default function SearchPage() {
         )}
       </main>
 
-        <footer className="w-full mt-16">
-          <QrCode />
-        </footer>
+        <Footer />
       </div>
     </PageTransition>
   );

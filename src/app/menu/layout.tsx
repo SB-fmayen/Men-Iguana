@@ -1,5 +1,5 @@
 import { MenuHeader } from '@/components/menu-header';
-import { QrCode } from '@/components/qr-code';
+import { Footer } from '@/components/footer';
 
 export default function MenuLayout({
   children,
@@ -10,9 +10,7 @@ export default function MenuLayout({
     <div className="bg-background min-h-screen">
       <MenuHeader />
       {children}
-      <footer className="w-full">
-        <QrCode />
-      </footer>
+      <Footer />
     </div>
   );
 }

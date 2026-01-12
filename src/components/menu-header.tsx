@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { menuData } from '@/lib/menu-data';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
 import { Menu, Search } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import Link from 'next/link';
@@ -109,6 +109,7 @@ export function MenuHeader() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
+              <SheetTitle className="sr-only">Menú de navegación</SheetTitle>
               <nav className="grid gap-4 mt-8">
                 <a href="/" className="flex items-center gap-2.5 mb-4" onClick={handleLinkClick}>
                   <img 

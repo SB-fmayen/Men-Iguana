@@ -3,6 +3,7 @@ import './globals.css';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { PizzaPreloader } from '@/components/pizza-preloader';
+import { WhatsappButton } from '@/components/whatsapp-button';
 
 export const metadata: Metadata = {
   title: 'Menú Tecinteca',
@@ -26,6 +27,7 @@ export default function RootLayout({
         <FirebaseClientProvider>
           {children}
           <Toaster />
+          <WhatsappButton />
         </FirebaseClientProvider>
       </body>
     </html>
