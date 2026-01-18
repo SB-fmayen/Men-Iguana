@@ -8,8 +8,9 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { ChevronLeft, Search } from 'lucide-react';
 import { PageTransition } from '@/components/page-transition';
+import { Suspense } from 'react';
 
-export default function SearchPage() {
+function SearchResults() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
 
@@ -28,7 +29,7 @@ export default function SearchPage() {
   const totalResults = searchResults.reduce((acc, result) => acc + result.items.length, 0);
 
   return (
-    <PageTransition>
+    <>
       <div className="bg-background min-h-screen">
         <MenuHeader />
       
@@ -91,6 +92,16 @@ export default function SearchPage() {
 
         <Footer />
       </div>
+    </>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <PageTransition>
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Cargando...</div>}>
+        <SearchResults />
+      </Suspense>
     </PageTransition>
   );
 }
