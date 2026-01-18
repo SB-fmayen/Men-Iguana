@@ -6,8 +6,8 @@ import { PizzaPreloader } from '@/components/pizza-preloader';
 import { WhatsappButton } from '@/components/whatsapp-button';
 
 export const metadata: Metadata = {
-  title: 'Menú Tecinteca',
-  description: 'Un menú digital para el restaurante Tecinteca.',
+  title: 'Menú Iguana',
+  description: 'Un menú digital para el restaurante Menu Iguana.',
 };
 
 export default function RootLayout({
