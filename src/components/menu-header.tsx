@@ -50,12 +50,7 @@ export function MenuHeader() {
           Menú
         </button>
 
-        {/* Promotions Link (Desktop) */}
-        <Link href="/promociones">
-          <button className="hidden md:block text-white font-bold text-lg hover:text-orange-500 transition-colors cursor-pointer">
-            Promociones
-          </button>
-        </Link>
+        {/* Promotions temporarily hidden */}
 
         {/* Search Bar */}
         <div className="hidden md:flex flex-1 max-w-md">
@@ -130,23 +125,7 @@ export function MenuHeader() {
                 >
                   Ver Menú
                 </button>
-                <Link href="/promociones" onClick={handleLinkClick}>
-                  <button className="w-full text-left px-3 py-2.5 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors font-bold text-orange-600">
-                    Ver Promociones
-                  </button>
-                </Link>
-                {menuData.map((category) => (
-                  <Link
-                    key={category.name}
-                    href={`/menu/${encodeURIComponent(category.name)}`}
-                    onClick={handleLinkClick}
-                  >
-                    <button className="w-full text-left flex items-center gap-3 px-3 py-2.5 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
-                      <category.icon className="h-5 w-5" />
-                      {category.name}
-                    </button>
-                  </Link>
-                ))}
+                {/* Promotions temporarily hidden in mobile menu */}
               </nav>
             </SheetContent>
           </Sheet>

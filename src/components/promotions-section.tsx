@@ -103,9 +103,7 @@ export function PromotionsSection() {
                   {promo.validUntil}
                 </div>
 
-                <Button className="w-full bg-white text-gray-900 hover:bg-gray-100 font-bold transition-colors duration-200">
-                  Ver Detalles
-                </Button>
+                
               </div>
             </div>
             </ScrollReveal>

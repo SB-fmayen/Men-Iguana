@@ -56,7 +56,7 @@ export const menuData: MenuCategory[] = [
     ],
   },
   {
-    name: 'Pizzas Tradicionales',
+    name: 'Pizzas Personales (1 Ingrediente)',
     icon: Pizza,
     items: [
       { name: 'Pepperoni', price: 35.00 },
@@ -69,7 +69,7 @@ export const menuData: MenuCategory[] = [
     ],
   },
   {
-    name: 'Pizzas Especialidades',
+    name: 'Pizzas Personales de Especialidad',
     icon: Pizza,
     items: [
         { name: 'Tocino', price: 40.00 },
@@ -85,13 +85,57 @@ export const menuData: MenuCategory[] = [
     ],
   },
   {
-    name: 'Pizzas Premium',
+    name: 'Pizzas Personales Premium',
     icon: Pizza,
     items: [
         { name: 'Tecinteca Suprema', price: 50.00 },
         { name: '8 Carnes', price: 50.00 },
         { name: 'Deluxe Tecinteca', price: 50.00 },
         { name: '1+1', price: 50.00 },
+    ],
+  },
+  {
+    name: 'Pizzas Grandes (1 Ingrediente)',
+    icon: Pizza,
+    items: [
+        { name: 'Pepperoni', price: 50.00 },
+        { name: 'Jamón', price: 50.00 },
+        { name: 'Salami', price: 50.00 },
+        { name: 'Carne italiana', price: 50.00 },
+        { name: 'Salchicha italiana', price: 50.00 },
+        { name: 'Champiñones', price: 50.00 },
+        { name: 'Chorizo', price: 50.00 },
+    ],
+  },
+  {
+    name: 'Pizzas Grandes de Especialidad',
+    icon: Pizza,
+    items: [
+        { name: 'Tocino', price: 100.00 },
+        { name: '4 Quesos', price: 100.00 },
+        { name: 'Corazón', price: 100.00, description: 'Ingrediente o especialidad a tu elección' },
+        { name: 'Hawaiana', price: 130.00, description: 'Jamón y Piña' },
+        { name: 'Americana', price: 130.00, description: 'Pepperoni, Champiñones y Salchicha Italiana' },
+        { name: 'Deluxe', price: 130.00, description: 'Pepperoni, Champiñones, Salchicha Italiana, Cebolla y Chile Pimiento' },
+        { name: '5 Carnes', price: 130.00, description: 'Pepperoni, Jamón, Salami, Carne Italiana y Salchicha Italiana' },
+        { name: 'Margarita', price: 130.00, description: 'Pepperoni, Champiñones y Tomate' },
+        { name: 'Hot dog cheese', price: 130.00, description: 'Tocino, Chorizo, Longaniza, Salchicha y Mostaza' },
+        { name: 'Vegetariana', price: 130.00, description: 'Champiñones, Chile Pimiento, Cebolla y Aceitunas negras' },
+    ],
+  },
+  {
+    name: 'Pizzas Grandes Premium',
+    icon: Pizza,
+    items: [
+        { name: 'Teocinteca', price: 130.00, description: 'Salsa de frijoles, tocino, cebolla, 4 quesos, crema y un toque de Queso Parmesano' },
+        { name: 'Suprema', price: 140.00, description: 'Pepperoni, Jamón, Champiñones, Carne Italiana, Salchicha Italiana, Cebolla, Chile Pimiento y Aceitunas Negras' },
+        { name: 'Cheese Bites', price: 130.00, description: 'Ingrediente a tu elección, Bolitas rellenas de Queso Mozzarella a la orilla' },
+        { name: '8 Carnes', price: 160.00, description: 'Pepperoni, Jamón, Salami, Tocino, Chorizo, Carne Italiana, Salchicha Italiana y Carne Asada' },
+        { name: 'Churrasco', price: 150.00, description: 'Tocino, Carne Asada, Tomate, Cebolla y un Toque de Chimichurri' },
+        { name: 'Súper Tocineta 1+1', price: 160.00, description: '1 Libra de Tocino Premium y 1 Libra de Queso Mozzarella' },
+        { name: '4 Estaciones', price: 230.00, description: '4 Especialidades Tradicionales a Tu Elección (24 porciones)' },
+        { name: 'De la Casa', price: 175.00, description: 'Pepperoni, Jamón, Salami, Champiñones, Carne Italiana, Salchicha Italiana, Cebolla, Chile Pimiento y Piña' },
+        { name: 'Pizza Alfredo', price: 160.00, description: 'Salsa Especial de Queso, Tocino, 4 Quesos y un Toque de Queso Parmesano' },
     ],
   },
   {
