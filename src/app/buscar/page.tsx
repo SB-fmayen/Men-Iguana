@@ -1,13 +1,13 @@
 'use client';
 
-import { MenuHeader } from '@/components/menu-header';
-import { Footer } from '@/components/footer';
-import { MenuItemCard } from '@/components/menu-item-card';
+import { MenuHeader } from '@/components/organisms/menu-header';
+import { Footer } from '@/components/organisms/footer';
+import { MenuItemCard } from '@/components/molecules/menu-item-card';
 import { menuData } from '@/lib/menu-data';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { ChevronLeft, Search } from 'lucide-react';
-import { PageTransition } from '@/components/page-transition';
+import { PageTransition } from '@/components/atoms/page-transition';
 import { Suspense } from 'react';
 
 function SearchResults() {
