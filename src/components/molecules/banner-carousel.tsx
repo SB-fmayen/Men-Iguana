@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { ScrollReveal } from '@/components/scroll-reveal';
+import { ScrollReveal } from '@/components/atoms/scroll-reveal';
 
 interface BannerSlide {
   id: number;

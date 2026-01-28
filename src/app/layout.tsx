@@ -2,8 +2,8 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { Toaster } from '@/components/ui/toaster';
-import { PizzaPreloader } from '@/components/pizza-preloader';
-import { WhatsappButton } from '@/components/whatsapp-button';
+import { PizzaPreloader } from '@/components/atoms/pizza-preloader';
+import { WhatsappButton } from '@/components/atoms/whatsapp-button';
 
 export const metadata: Metadata = {
   title: 'Menú Iguana',

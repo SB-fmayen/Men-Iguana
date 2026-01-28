@@ -3,7 +3,7 @@
 import { menuData } from '@/lib/menu-data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ScrollReveal } from '@/components/scroll-reveal';
+import { ScrollReveal } from '@/components/atoms/scroll-reveal';
 
 export function CategoriesShowcase() {
   return (

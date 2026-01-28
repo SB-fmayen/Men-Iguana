@@ -1,13 +1,13 @@
 'use client';
 
-import { MenuItemCard } from '@/components/menu-item-card';
+import { MenuItemCard } from '@/components/molecules/menu-item-card';
 import { menuData } from '@/lib/menu-data';
 import { useParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
-import { PageTransition } from '@/components/page-transition';
-import { ScrollReveal } from '@/components/scroll-reveal';
+import { PageTransition } from '@/components/atoms/page-transition';
+import { ScrollReveal } from '@/components/atoms/scroll-reveal';
 
 export default function CategoryPage() {
   const params = useParams();

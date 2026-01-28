@@ -2,7 +2,7 @@
 
 import { Gift, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { ScrollReveal } from '@/components/scroll-reveal';
+import { ScrollReveal } from '@/components/atoms/scroll-reveal';
 
 interface Promotion {
   id: number;

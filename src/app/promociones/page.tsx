@@ -1,10 +1,10 @@
-import { MenuHeader } from '@/components/menu-header';
-import { Footer } from '@/components/footer';
+import { MenuHeader } from '@/components/organisms/menu-header';
+import { Footer } from '@/components/organisms/footer';
 import { Gift, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
-import { PageTransition } from '@/components/page-transition';
+import { PageTransition } from '@/components/atoms/page-transition';
 
 interface Promotion {
   id: number;

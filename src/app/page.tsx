@@ -1,10 +1,10 @@
 import { menuData } from '@/lib/menu-data';
-import { MenuItemCard } from '@/components/menu-item-card';
-import { Footer } from '@/components/footer';
-import { MenuHeader } from '@/components/menu-header';
-import { BannerCarousel } from '@/components/banner-carousel';
-import { CategoriesShowcase } from '@/components/categories-showcase';
-import { PageTransition } from '@/components/page-transition';
+import { MenuItemCard } from '@/components/molecules/menu-item-card';
+import { Footer } from '@/components/organisms/footer';
+import { MenuHeader } from '@/components/organisms/menu-header';
+import { BannerCarousel } from '@/components/molecules/banner-carousel';
+import { CategoriesShowcase } from '@/components/organisms/categories-showcase';
+import { PageTransition } from '@/components/atoms/page-transition';
 
 export default function Home() {
   return (

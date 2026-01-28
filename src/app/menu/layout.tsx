@@ -1,5 +1,5 @@
-import { MenuHeader } from '@/components/menu-header';
-import { Footer } from '@/components/footer';
+import { MenuHeader } from '@/components/organisms/menu-header';
+import { Footer } from '@/components/organisms/footer';
 
 export default function MenuLayout({
   children,
