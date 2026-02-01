@@ -85,5 +85,18 @@ service cloud.firestore {
       allow update: if isExistingAdmin();
       allow delete: if isExistingAdmin();
     }
+
+    /**
+     * @description Registro de jugadores del juego. Cada usuario puede crear/actualizar
+     *              únicamente su propio documento (uid).
+     * @path /chessPlayers/{userId}
+     */
+    match /chessPlayers/{userId} {
+      allow get: if request.auth != null && request.auth.uid == userId;
+      allow list: if false; // Evita lectura masiva de correos
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow update: if request.auth != null && request.auth.uid == userId;
+      allow delete: if false;
+    }
   }
 }

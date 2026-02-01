@@ -50,6 +50,14 @@ export function MenuHeader() {
           Menú
         </button>
 
+        {/* Juego Link (Desktop) */}
+        <Link
+          href="/juego"
+          className="hidden md:block text-white font-bold text-lg hover:text-orange-500 transition-colors cursor-pointer"
+        >
+          Juego
+        </Link>
+
         {/* Promotions temporarily hidden */}
 
         {/* Search Bar */}
@@ -125,6 +133,13 @@ export function MenuHeader() {
                 >
                   Ver Menú
                 </button>
+                <Link
+                  href="/juego"
+                  onClick={handleLinkClick}
+                  className="text-left px-3 py-2.5 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors font-bold"
+                >
+                  Juego
+                </Link>
                 {/* Promotions temporarily hidden in mobile menu */}
               </nav>
             </SheetContent>
