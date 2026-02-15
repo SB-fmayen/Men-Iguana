@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { Utensils, Soup, CakeSlice, Pizza, Sandwich, Drumstick, HandPlatter, Wheat } from 'lucide-react';
+import { Utensils, Soup, CakeSlice, Pizza, Sandwich, Drumstick, HandPlatter, Wheat, Wine } from 'lucide-react';
 
 export interface MenuItemOption {
   name: string;
@@ -25,7 +25,7 @@ export const menuData: MenuCategory[] = [
     icon: Utensils,
     items: [
       { name: 'Lasaña en salsa Alfredo (blanca)', price: 60.00, description: 'Incluye: Pan con ajo o mantequilla. Opciones: Pollo, tocino o champiñones.' },
-      { name: 'Lasaña a la boloñesa', price: 50.00, description: 'Incluye: Pan con ajo o mantequilla. Opciones: Pollo, tocino o champiñones.' },
+      { name: 'Lasaña a la boloñesa', price: 55.00, description: 'Incluye: Pan con ajo o mantequilla. Opciones: Pollo, tocino o champiñones.' },
       { name: 'Porción extra de pan', price: 15.00 },
     ],
   },
@@ -204,6 +204,16 @@ export const menuData: MenuCategory[] = [
     items: [
       { name: 'Pan extra (ajo o mantequilla)', price: 15.00 },
       { name: 'Picante de la casa', price: 15.00 },
+    ],
+  },
+  {
+    name: 'Bebidas',
+    icon: Wine,
+    items: [
+      { name: 'Gaseosas en lata', price: 10.00 },
+      { name: 'Coca-cola 2.5 Lt', price: 25.00 },
+      { name: 'Botella de agua pura', price: 5.00 },
+      { name: 'Agua Mineral', price: 8.00 },
     ],
   },
 ];
