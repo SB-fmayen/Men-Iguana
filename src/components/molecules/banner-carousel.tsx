@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { ScrollReveal } from '@/components/atoms/scroll-reveal';
 
@@ -88,42 +89,24 @@ export function BannerCarousel() {
             }`}
           >
             <div className={`h-full w-full bg-gradient-to-r ${slide.color} flex items-center justify-center relative overflow-hidden`}>
-              {/* Decorative background */}
-              <div className="absolute inset-0 opacity-10">
-                <div className="absolute top-0 -left-20 w-96 h-96 rounded-full blur-3xl bg-white"></div>
-                <div className="absolute bottom-0 -right-20 w-96 h-96 rounded-full blur-3xl bg-white"></div>
-              </div>
 
               {/* Content */}
               <div className="relative z-10 flex h-full w-full items-center justify-center px-0">
                 {hasImageFile ? (
                   <div className="relative h-full w-full flex items-center justify-center">
-                    <img
+                    <Image
                       src={slide.image}
-                      alt={slide.title}
-                      className="h-full w-full object-cover"
+                      alt="Banner"
+                      fill
+                      className="object-cover"
+                      priority={index === 0}
+                      quality={90}
+                      sizes="100vw"
                     />
-                    <div className="absolute inset-0 bg-black/10" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center px-6 md:px-10 max-w-5xl">
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-                          {slide.title}
-                        </h2>
-                        <p className="text-lg md:text-xl text-white/90 drop-shadow-md mb-8">
-                          {slide.description}
-                        </p>
-                      </div>
-                    </div>
                   </div>
                 ) : (
                   <div className="relative text-center px-4 w-full max-w-7xl mx-auto">
                     <div className="text-8xl md:text-9xl mb-6">{slide.image}</div>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-                      {slide.title}
-                    </h2>
-                    <p className="text-lg md:text-xl text-white/90 drop-shadow-md mb-8">
-                      {slide.description}
-                    </p>
                   </div>
                 )}
               </div>

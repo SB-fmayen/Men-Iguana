@@ -3,7 +3,7 @@ import './globals.css';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { PizzaPreloader } from '@/components/atoms/pizza-preloader';
-import { WhatsappButton } from '@/components/atoms/whatsapp-button';
+import { FooterClient } from '@/components/organisms/footer-client';
 
 export const metadata: Metadata = {
   title: 'Menú Iguana',
@@ -27,7 +27,7 @@ export default function RootLayout({
         <FirebaseClientProvider>
           {children}
           <Toaster />
-          <WhatsappButton />
+          <FooterClient />
         </FirebaseClientProvider>
       </body>
     </html>
