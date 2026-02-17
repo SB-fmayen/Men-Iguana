@@ -8,6 +8,7 @@ import { Menu, Search } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { CartSheet } from '@/components/organisms/cart-sheet';
 
 export function MenuHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -94,41 +95,45 @@ export function MenuHeader() {
           </form>
         </div>
 
-        {/* Mobile Navigation */}
-        <div className="md:hidden">
-          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-white hover:bg-gray-800">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Abrir menú</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right">
-              <SheetTitle className="sr-only">Menú de navegación</SheetTitle>
-              <nav className="grid gap-4 mt-8">
-                <a href="/" className="flex items-center gap-2.5 mb-4" onClick={handleLinkClick}>
-                  <img 
-                    src="/iconoIguana.png" 
-                    alt="La Iguana Logo" 
-                    className="h-10 w-10 object-contain"
-                  />
-                  <span className="font-bold text-lg text-gray-900">
-                    Shukos y Pizza La Iguana
-                  </span>
-                </a>
-                <button
-                  onClick={() => {
-                    setMenuDialogOpen(true);
-                    setMobileMenuOpen(false);
-                  }}
-                  className="text-left px-3 py-2.5 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors font-bold text-orange-600"
-                >
-                  Ver Menú
-                </button>
-                {/* Promotions temporarily hidden in mobile menu */}
-              </nav>
-            </SheetContent>
-          </Sheet>
+        <div className="ml-auto flex items-center gap-2">
+          {/* Mobile Navigation */}
+          <div className="md:hidden">
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-800">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Abrir menú</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right">
+                <SheetTitle className="sr-only">Menú de navegación</SheetTitle>
+                <nav className="grid gap-4 mt-8">
+                  <a href="/" className="flex items-center gap-2.5 mb-4" onClick={handleLinkClick}>
+                    <img 
+                      src="/iconoIguana.png" 
+                      alt="La Iguana Logo" 
+                      className="h-10 w-10 object-contain"
+                    />
+                    <span className="font-bold text-lg text-gray-900">
+                      Shukos y Pizza La Iguana
+                    </span>
+                  </a>
+                  <button
+                    onClick={() => {
+                      setMenuDialogOpen(true);
+                      setMobileMenuOpen(false);
+                    }}
+                    className="text-left px-3 py-2.5 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors font-bold text-orange-600"
+                  >
+                    Ver Menú
+                  </button>
+                  {/* Promotions temporarily hidden in mobile menu */}
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
+
+          <CartSheet />
         </div>
 
         {/* Menu Dialog with Categories */}
@@ -146,14 +151,7 @@ export function MenuHeader() {
                     onClick={() => setMenuDialogOpen(false)}
                   >
                     <div className="flex flex-col h-full rounded-2xl border-4 border-black shadow-md hover:shadow-lg transition-all duration-200 bg-white overflow-hidden cursor-pointer group">
-                      {/* Content */}
                       <div className="flex gap-4 p-6">
-                        {/* Icon */}
-                        <div className="w-20 h-20 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
-                          <category.icon className="h-10 w-10 text-gray-400" strokeWidth={1.5} />
-                        </div>
-
-                        {/* Content */}
                         <div className="flex-1 flex flex-col justify-center">
                           <h3 className="font-bold text-lg text-black mb-1">
                             {category.name.toUpperCase()}

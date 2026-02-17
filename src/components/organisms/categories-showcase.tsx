@@ -26,12 +26,6 @@ export function CategoriesShowcase() {
               <div className="flex flex-col h-full rounded-2xl border-4 border-black shadow-md hover:shadow-lg transition-all duration-200 bg-white overflow-hidden cursor-pointer group">
                 {/* Content */}
                 <div className="flex gap-4 p-6">
-                  {/* Icon */}
-                  <div className="w-20 h-20 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
-                    <category.icon className="h-10 w-10 text-gray-400" strokeWidth={1.5} />
-                  </div>
-
-                  {/* Text Content */}
                   <div className="flex-1 flex flex-col justify-center">
                     <h3 className="font-bold text-lg text-black mb-1">
                       {category.name.toUpperCase()}

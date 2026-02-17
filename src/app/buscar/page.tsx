@@ -72,7 +72,7 @@ function SearchResults() {
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                   {result.items.map((item) => (
-                    <MenuItemCard key={item.name} item={item} />
+                    <MenuItemCard key={item.name} item={item} categoryName={result.category} />
                   ))}
                 </div>
               </section>

@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { Utensils, Soup, CakeSlice, Pizza, Sandwich, Drumstick, HandPlatter, Wheat, Wine } from 'lucide-react';
+import { Utensils, Soup, CakeSlice, Pizza, Sandwich, HandPlatter, Wheat, Wine } from 'lucide-react';
 
 export interface MenuItemOption {
   name: string;
@@ -42,7 +42,7 @@ export const menuData: MenuCategory[] = [
   },
    {
     name: 'Hamburguesas',
-    icon: Drumstick,
+    icon: Sandwich,
     items: [
       { name: 'Hamburguesa simple', price: 20.00 },
       { name: 'Quesoburguesa simple', price: 23.00 },

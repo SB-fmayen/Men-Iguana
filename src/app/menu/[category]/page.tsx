@@ -40,7 +40,6 @@ export default function CategoryPage() {
       {/* Category Header */}
       <div className="mb-12">
         <div className="flex items-center gap-4 mb-4">
-          <category.icon className="w-10 h-10 md:w-12 md:h-12 text-orange-600" strokeWidth={2.5} />
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
             {category.name}
           </h1>
@@ -54,7 +53,7 @@ export default function CategoryPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 pb-16 md:pb-24">
         {category.items.map((item, index) => (
           <ScrollReveal key={item.name} delay={index * 0.05} direction="up">
-            <MenuItemCard item={item} />
+            <MenuItemCard item={item} categoryName={category.name} />
           </ScrollReveal>
         ))}
       </div>

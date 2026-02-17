@@ -1,6 +1,6 @@
 import type {Metadata} from 'next';
 import './globals.css';
-import { FirebaseClientProvider } from '@/firebase/client-provider';
+import { AppProviders } from '@/components/app-providers';
 import { Toaster } from '@/components/ui/toaster';
 import { PizzaPreloader } from '@/components/atoms/pizza-preloader';
 import { FooterClient } from '@/components/organisms/footer-client';
@@ -24,11 +24,11 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         <PizzaPreloader />
-        <FirebaseClientProvider>
+        <AppProviders>
           {children}
           <Toaster />
           <FooterClient />
-        </FirebaseClientProvider>
+        </AppProviders>
       </body>
     </html>
   );

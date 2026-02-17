@@ -1,10 +1,10 @@
 'use client';
 
 import { MessageCircle } from 'lucide-react';
+import { WHATSAPP_NUMBER } from '@/lib/whatsapp';
 
 export function WhatsappButton() {
-  const phoneNumber = '50242872910'; // WhatsApp format: country code (502 Guatemala) + number without spaces
-  const whatsappUrl = `https://wa.me/${phoneNumber}`;
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}`;
 
   return (
     <a
