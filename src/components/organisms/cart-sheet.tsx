@@ -16,11 +16,23 @@ const formatPrice = (price: number) => {
 
 const buildWhatsAppMessage = (items: CartItem[], total: number) => {
   const hour = new Date().getHours();
-  const greeting = hour < 12 ? 'Buenos dias' : hour < 18 ? 'Buenas tardes' : 'Buenas noches';
-  const lines = items.map((item) =>
-    `${item.quantity}x ${item.name} - ${formatPrice(item.price * item.quantity)}`
-  );
-  return [`${greeting},`, 'Pedido:', ...lines, `Total: ${formatPrice(total)}`].join('\n');
+  const greeting = hour < 12 ? 'Buenos días' : hour < 18 ? 'Buenas tardes' : 'Buenas noches';
+  const lines = items
+    .map(
+      (item) =>
+        `${item.quantity}x - *${item.name}*\nTamaño: Grande\n*Precio:* ${formatPrice(item.price)}\n\n*Subtotal:* ${formatPrice(item.price * item.quantity)}`
+    )
+    .join('\n\n');
+
+  return [
+    `${greeting}, deseo ordenar:`,
+    '',
+    lines,
+    '',
+    `*Total:* ${formatPrice(total)}`,
+    '',
+    'Gracias',
+  ].join('\n');
 };
 
 export function CartSheet() {
@@ -49,7 +61,10 @@ export function CartSheet() {
         </SheetHeader>
         <div className="mt-6 flex-1 overflow-y-auto">
           {!hasItems ? (
-            <p className="text-sm text-muted-foreground">No hay productos en el carrito.</p>
+            <div className="rounded-lg border border-dashed border-gray-300 p-4 text-center">
+              <p className="text-sm font-medium text-gray-700">Tu carrito está vacío.</p>
+              <p className="mt-1 text-sm text-muted-foreground">Agrega productos para continuar con tu pedido.</p>
+            </div>
           ) : (
             <div className="space-y-4">
               {items.map((item) => (
@@ -97,28 +112,29 @@ export function CartSheet() {
             </div>
           )}
         </div>
-        <div className="mt-6 border-t border-gray-200 pt-4">
-          <div className="flex items-center justify-between text-base font-semibold">
-            <span>Total</span>
-            <span>{formatPrice(total)}</span>
+        {hasItems && (
+          <div className="mt-6 border-t border-gray-200 pt-4">
+            <div className="flex items-center justify-between text-base font-semibold">
+              <span>Total</span>
+              <span>{formatPrice(total)}</span>
+            </div>
+            <div className="mt-4 grid gap-2">
+              <Button asChild className="bg-green-600 hover:bg-green-700">
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="h-4 w-4" />
+                  Ordenar por WhatsApp
+                </a>
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={clear}
+              >
+                Vaciar carrito
+              </Button>
+            </div>
           </div>
-          <div className="mt-4 grid gap-2">
-            <Button asChild disabled={!hasItems} className="bg-green-600 hover:bg-green-700">
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="h-4 w-4" />
-                Ordenar por WhatsApp
-              </a>
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={clear}
-              disabled={!hasItems}
-            >
-              Vaciar carrito
-            </Button>
-          </div>
-        </div>
+        )}
       </SheetContent>
     </Sheet>
   );
