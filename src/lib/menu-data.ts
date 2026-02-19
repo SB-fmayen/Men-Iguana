@@ -24,7 +24,7 @@ export const menuData: MenuCategory[] = [
     name: 'Lasaña',
     icon: Utensils,
     items: [
-      { name: 'Lasaña en salsa Alfredo (blanca)', price: 60.00, description: 'Incluye: Pan con ajo o mantequilla.' },
+      { name: 'Lasaña en salsa Alfredo (blanca)', price: 65.00, description: 'Incluye: Pan con ajo o mantequilla.' },
       { name: 'Lasaña a la boloñesa', price: 55.00, description: 'Incluye: Pan con ajo o mantequilla.' },
       { name: 'Porción extra de pan', price: 15.00 },
     ],
