@@ -109,7 +109,7 @@ export const menuData: MenuCategory[] = [
     name: 'Pizzas Grandes de Especialidad',
     icon: Pizza,
     items: [
-        { name: 'Tocino', price: 100.00 },
+        { name: 'Tocino', price: 130.00 },
         { name: '4 Quesos', price: 100.00 },
         { name: 'Corazón', price: 100.00, description: 'Ingrediente o especialidad a tu elección' },
         { name: 'Hawaiana', price: 130.00, description: 'Jamón y Piña' },
