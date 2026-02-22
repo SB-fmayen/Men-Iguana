@@ -14,13 +14,35 @@ const formatPrice = (price: number) => {
   }).format(price);
 };
 
+const formatWhatsAppPrice = (price: number) => {
+  return `Q ${price.toFixed(2)}`;
+};
+
+const getCategoryNameFromId = (itemId: string) => {
+  const parts = itemId.split('::');
+  if (parts.length === 2) {
+    return parts[0];
+  }
+  if (parts.length >= 3) {
+    return parts[1];
+  }
+  return '';
+};
+
+const formatProductName = (categoryName: string) => {
+  if (categoryName === 'Shukos' || categoryName.startsWith('Shukos -')) {
+    return 'Shuko';
+  }
+  return categoryName || 'Producto no especificado';
+};
+
 const buildWhatsAppMessage = (items: CartItem[], total: number) => {
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Buenos días' : hour < 18 ? 'Buenas tardes' : 'Buenas noches';
   const lines = items
     .map(
       (item) =>
-        `${item.quantity}x - *${item.name}*\nTamaño: Grande\n*Precio:* ${formatPrice(item.price)}\n\n*Subtotal:* ${formatPrice(item.price * item.quantity)}`
+        `${item.quantity}x - ${item.name}\nProducto: ${formatProductName(getCategoryNameFromId(item.id))}\nPrecio: ${formatWhatsAppPrice(item.price)}\nSubtotal: ${formatWhatsAppPrice(item.price * item.quantity)}`
     )
     .join('\n\n');
 
@@ -29,9 +51,7 @@ const buildWhatsAppMessage = (items: CartItem[], total: number) => {
     '',
     lines,
     '',
-    `*Total:* ${formatPrice(total)}`,
-    '',
-    'Gracias',
+    `Total: ${formatWhatsAppPrice(total)} Gracias`,
   ].join('\n');
 };
 

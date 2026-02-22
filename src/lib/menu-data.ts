@@ -137,6 +137,82 @@ export const menuData: MenuCategory[] = [
     ],
   },
   {
+    name: 'Don Calzone y Enrrollado - Tradicionales',
+    icon: Pizza,
+    items: [
+        { name: 'Pepperoni', price: 35.00 },
+        { name: 'Jamón', price: 35.00 },
+        { name: 'Salami', price: 35.00 },
+        { name: 'Carne Italiana', price: 35.00 },
+        { name: 'Salchicha Italiana', price: 35.00 },
+        { name: 'Champiñones', price: 35.00 },
+        { name: 'Chorizo', price: 35.00 },
+    ],
+  },
+  {
+    name: 'Don Calzone y Enrrollado - Especialidades',
+    icon: Pizza,
+    items: [
+        { name: 'Tocino', price: 40.00 },
+        { name: '4 Quesos', price: 40.00, description: 'Cheddar, Monterrey, Asadero y Mozzarella' },
+        { name: 'Hawaiana', price: 40.00, description: 'Jamón y Piña' },
+        { name: 'Americana', price: 40.00, description: 'Pepperoni, Champiñones y Salchicha Italiana' },
+        { name: 'Deluxe', price: 40.00, description: 'Pepperoni, Champiñones, Salchicha Italiana, Cebolla y Chile Pimiento' },
+        { name: '5 Carnes', price: 40.00, description: 'Pepperoni, Jamón, Salami, Carne Italiana y Salchicha Italiana' },
+        { name: 'Margarita', price: 40.00, description: 'Pepperoni, Champiñones y Tomate' },
+        { name: 'Hot Dog Cheese', price: 40.00, description: 'Tocino, Chorizo, Longaniza, Salchicha y Mostaza' },
+        { name: 'Vegetariana', price: 40.00, description: 'Champiñones, Chile Pimiento, Cebolla y Aceitunas Negras' },
+    ],
+  },
+  {
+    name: 'Don Calzone y Enrrollado - Premium',
+    icon: Pizza,
+    items: [
+        { name: 'Teocinteca', price: 50.00, description: 'Salsa de Frijoles, Tocino, Cebolla, 4 quesos, crema y Queso Parmesano' },
+        { name: 'Suprema', price: 50.00, description: 'Pepperoni, Jamón, Champiñones, Carne Italiana, Salchicha Italiana, Cebolla, Chile Pimiento y Aceitunas Negras' },
+        { name: '8 Carnes', price: 50.00, description: 'Pepperoni, Jamón, Salami, Tocino, Chorizo, Carne Italiana, Salchicha Italiana y Carne Asada' },
+        { name: 'Churrasco', price: 50.00, description: 'Tocino, Carne Asada, Tomate, Cebolla y Chimichurri' },
+    ],
+  },
+  {
+    name: 'Cono Pizza - Tradicionales',
+    icon: Pizza,
+    items: [
+        { name: 'Pepperoni', price: 40.00 },
+        { name: 'Jamón', price: 40.00 },
+        { name: 'Salami', price: 40.00 },
+        { name: 'Carne Italiana', price: 40.00 },
+        { name: 'Salchicha Italiana', price: 40.00 },
+        { name: 'Champiñones', price: 40.00 },
+        { name: 'Chorizo', price: 40.00 },
+    ],
+  },
+  {
+    name: 'Cono Pizza - Especialidades',
+    icon: Pizza,
+    items: [
+        { name: 'Tocino', price: 50.00 },
+        { name: '4 Quesos', price: 50.00, description: 'Cheddar, Monterrey, Asadero y Mozzarella' },
+        { name: 'Hawaiana', price: 50.00, description: 'Jamón y Piña' },
+        { name: 'Americana', price: 50.00, description: 'Pepperoni, Champiñones y Salchicha Italiana' },
+        { name: 'Deluxe', price: 50.00, description: 'Pepperoni, Champiñones, Salchicha Italiana, Cebolla y Chile Pimiento' },
+        { name: '5 Carnes', price: 50.00, description: 'Pepperoni, Jamón, Salami, Carne Italiana y Salchicha Italiana' },
+        { name: 'Margarita', price: 50.00, description: 'Pepperoni, Champiñones y Tomate' },
+        { name: 'Hot Dog Cheese', price: 50.00, description: 'Tocino, Chorizo, Longaniza, Salchicha y Mostaza' },
+        { name: 'Vegetariana', price: 50.00, description: 'Champiñones, Chile Pimiento, Cebolla y Aceitunas Negras' },
+    ],
+  },
+  {
+    name: 'Cono Pizza - Premium',
+    icon: Pizza,
+    items: [
+        { name: 'Teocinteca', price: 60.00, description: 'Salsa de Frijoles, Tocino, Cebolla, 4 quesos, crema y Queso Parmesano' },
+        { name: 'Suprema', price: 60.00, description: 'Pepperoni, Jamón, Champiñones, Carne Italiana, Salchicha Italiana, Cebolla, Chile Pimiento y Aceitunas Negras' },
+        { name: '8 Carnes', price: 60.00, description: 'Pepperoni, Jamón, Salami, Tocino, Chorizo, Carne Italiana, Salchicha Italiana y Carne Asada' },
+        { name: 'Churrasco', price: 60.00, description: 'Tocino, Carne Asada, Tomate, Cebolla y Chimichurri' },
+    ],
+  },
+  {
     name: 'Tortillas de Harina',
     icon: Wheat,
     items: [
@@ -202,6 +278,7 @@ export const menuData: MenuCategory[] = [
     items: [
       { name: 'Pan extra (ajo o mantequilla)', price: 15.00 },
       { name: 'Picante de la casa', price: 15.00 },
+      { name: 'Agrega un snack + bebida', price: 10.00 },
     ],
   },
   {
