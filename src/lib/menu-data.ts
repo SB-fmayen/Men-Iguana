@@ -16,8 +16,73 @@ export interface MenuItem {
 export interface MenuCategory {
   name: string;
   icon: LucideIcon;
+  parentCategory?: string;
+  subcategory?: string;
   items: MenuItem[];
 }
+
+const calzoneAndEnrolladoTradicionalesItems: MenuItem[] = [
+  { name: 'Pepperoni', price: 35.0 },
+  { name: 'Jamón', price: 35.0 },
+  { name: 'Salami', price: 35.0 },
+  { name: 'Carne Italiana', price: 35.0 },
+  { name: 'Salchicha Italiana', price: 35.0 },
+  { name: 'Champiñones', price: 35.0 },
+  { name: 'Chorizo', price: 35.0 },
+];
+
+const calzoneAndEnrolladoEspecialidadesItems: MenuItem[] = [
+  { name: 'Tocino', price: 40.0 },
+  { name: '4 Quesos', price: 40.0, description: 'Cheddar, Monterrey, Asadero y Mozzarella' },
+  { name: 'Hawaiana', price: 40.0, description: 'Jamón y Piña' },
+  { name: 'Americana', price: 40.0, description: 'Pepperoni, Champiñones y Salchicha Italiana' },
+  {
+    name: 'Deluxe',
+    price: 40.0,
+    description: 'Pepperoni, Champiñones, Salchicha Italiana, Cebolla y Chile Pimiento',
+  },
+  {
+    name: '5 Carnes',
+    price: 40.0,
+    description: 'Pepperoni, Jamón, Salami, Carne Italiana y Salchicha Italiana',
+  },
+  { name: 'Margarita', price: 40.0, description: 'Pepperoni, Champiñones y Tomate' },
+  {
+    name: 'Hot Dog Cheese',
+    price: 40.0,
+    description: 'Tocino, Chorizo, Longaniza, Salchicha y Mostaza',
+  },
+  {
+    name: 'Vegetariana',
+    price: 40.0,
+    description: 'Champiñones, Chile Pimiento, Cebolla y Aceitunas Negras',
+  },
+];
+
+const calzoneAndEnrolladoPremiumItems: MenuItem[] = [
+  {
+    name: 'Teocinteca',
+    price: 50.0,
+    description: 'Salsa de Frijoles, Tocino, Cebolla, 4 quesos, crema y Queso Parmesano',
+  },
+  {
+    name: 'Suprema',
+    price: 50.0,
+    description:
+      'Pepperoni, Jamón, Champiñones, Carne Italiana, Salchicha Italiana, Cebolla, Chile Pimiento y Aceitunas Negras',
+  },
+  {
+    name: '8 Carnes',
+    price: 50.0,
+    description:
+      'Pepperoni, Jamón, Salami, Tocino, Chorizo, Carne Italiana, Salchicha Italiana y Carne Asada',
+  },
+  {
+    name: 'Churrasco',
+    price: 50.0,
+    description: 'Tocino, Carne Asada, Tomate, Cebolla y Chimichurri',
+  },
+];
 
 export const menuData: MenuCategory[] = [
   {
@@ -137,42 +202,46 @@ export const menuData: MenuCategory[] = [
     ],
   },
   {
-    name: 'Don Calzone y Enrrollado - Tradicionales',
+    name: 'Don Calzone - Tradicionales',
+    parentCategory: 'Don Calzone',
+    subcategory: 'Tradicionales',
     icon: Pizza,
-    items: [
-        { name: 'Pepperoni', price: 35.00 },
-        { name: 'Jamón', price: 35.00 },
-        { name: 'Salami', price: 35.00 },
-        { name: 'Carne Italiana', price: 35.00 },
-        { name: 'Salchicha Italiana', price: 35.00 },
-        { name: 'Champiñones', price: 35.00 },
-        { name: 'Chorizo', price: 35.00 },
-    ],
+    items: calzoneAndEnrolladoTradicionalesItems,
   },
   {
-    name: 'Don Calzone y Enrrollado - Especialidades',
+    name: 'Don Calzone - Especialidades',
+    parentCategory: 'Don Calzone',
+    subcategory: 'Especialidades',
     icon: Pizza,
-    items: [
-        { name: 'Tocino', price: 40.00 },
-        { name: '4 Quesos', price: 40.00, description: 'Cheddar, Monterrey, Asadero y Mozzarella' },
-        { name: 'Hawaiana', price: 40.00, description: 'Jamón y Piña' },
-        { name: 'Americana', price: 40.00, description: 'Pepperoni, Champiñones y Salchicha Italiana' },
-        { name: 'Deluxe', price: 40.00, description: 'Pepperoni, Champiñones, Salchicha Italiana, Cebolla y Chile Pimiento' },
-        { name: '5 Carnes', price: 40.00, description: 'Pepperoni, Jamón, Salami, Carne Italiana y Salchicha Italiana' },
-        { name: 'Margarita', price: 40.00, description: 'Pepperoni, Champiñones y Tomate' },
-        { name: 'Hot Dog Cheese', price: 40.00, description: 'Tocino, Chorizo, Longaniza, Salchicha y Mostaza' },
-        { name: 'Vegetariana', price: 40.00, description: 'Champiñones, Chile Pimiento, Cebolla y Aceitunas Negras' },
-    ],
+    items: calzoneAndEnrolladoEspecialidadesItems,
   },
   {
-    name: 'Don Calzone y Enrrollado - Premium',
+    name: 'Don Calzone - Premium',
+    parentCategory: 'Don Calzone',
+    subcategory: 'Premium',
     icon: Pizza,
-    items: [
-        { name: 'Teocinteca', price: 50.00, description: 'Salsa de Frijoles, Tocino, Cebolla, 4 quesos, crema y Queso Parmesano' },
-        { name: 'Suprema', price: 50.00, description: 'Pepperoni, Jamón, Champiñones, Carne Italiana, Salchicha Italiana, Cebolla, Chile Pimiento y Aceitunas Negras' },
-        { name: '8 Carnes', price: 50.00, description: 'Pepperoni, Jamón, Salami, Tocino, Chorizo, Carne Italiana, Salchicha Italiana y Carne Asada' },
-        { name: 'Churrasco', price: 50.00, description: 'Tocino, Carne Asada, Tomate, Cebolla y Chimichurri' },
-    ],
+    items: calzoneAndEnrolladoPremiumItems,
+  },
+  {
+    name: 'Enrollado - Tradicionales',
+    parentCategory: 'Enrollado',
+    subcategory: 'Tradicionales',
+    icon: Pizza,
+    items: calzoneAndEnrolladoTradicionalesItems,
+  },
+  {
+    name: 'Enrollado - Especialidades',
+    parentCategory: 'Enrollado',
+    subcategory: 'Especialidades',
+    icon: Pizza,
+    items: calzoneAndEnrolladoEspecialidadesItems,
+  },
+  {
+    name: 'Enrollado - Premium',
+    parentCategory: 'Enrollado',
+    subcategory: 'Premium',
+    icon: Pizza,
+    items: calzoneAndEnrolladoPremiumItems,
   },
   {
     name: 'Cono Pizza - Tradicionales',

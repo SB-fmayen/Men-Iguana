@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { menuData } from '@/lib/menu-data';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { CartSheet } from '@/components/organisms/cart-sheet';
+import { PARENT_MENU_CONFIG, getParentSlugsFromCategory } from '@/lib/subcategory-routing';
 
 export function MenuHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -27,6 +28,46 @@ export function MenuHeader() {
       setSearchQuery('');
     }
   };
+
+  const menuCards = useMemo(() => {
+    const parentCardsBySlug = new Map<string, { id: string; name: string; routeName: string; itemCount: number }>();
+    const orderedCards: Array<{ id: string; name: string; routeName: string; itemCount: number }> = [];
+
+    menuData.forEach((category) => {
+      const parentSlugs = getParentSlugsFromCategory(category.name, category.parentCategory);
+
+      if (parentSlugs.length === 0) {
+        orderedCards.push({
+          id: category.name,
+          name: category.name,
+          routeName: `/menu/${encodeURIComponent(category.name)}`,
+          itemCount: category.items.length,
+        });
+        return;
+      }
+
+      parentSlugs.forEach((parentSlug) => {
+        const parentConfig = PARENT_MENU_CONFIG[parentSlug];
+        const existing = parentCardsBySlug.get(parentSlug);
+
+        if (!existing) {
+          const parentCard = {
+            id: `parent-${parentSlug}`,
+            name: parentConfig.title,
+            routeName: parentConfig.href,
+            itemCount: category.items.length,
+          };
+          parentCardsBySlug.set(parentSlug, parentCard);
+          orderedCards.push(parentCard);
+          return;
+        }
+
+        existing.itemCount += category.items.length;
+      });
+    });
+
+    return orderedCards;
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-black backdrop-blur-xl border-b border-gray-800 shadow-lg">
@@ -144,10 +185,10 @@ export function MenuHeader() {
             </DialogHeader>
             <div className="mt-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {menuData.map((category) => (
+                {menuCards.map((category) => (
                   <Link
-                    key={category.name}
-                    href={`/menu/${encodeURIComponent(category.name)}`}
+                    key={category.id}
+                    href={category.routeName}
                     onClick={() => setMenuDialogOpen(false)}
                   >
                     <div className="flex flex-col h-full rounded-2xl border-4 border-black shadow-md hover:shadow-lg transition-all duration-200 bg-white overflow-hidden cursor-pointer group">
@@ -156,9 +197,6 @@ export function MenuHeader() {
                           <h3 className="font-bold text-lg text-black mb-1">
                             {category.name.toUpperCase()}
                           </h3>
-                          <p className="text-sm text-gray-600">
-                            {category.items.length} opciones disponibles
-                          </p>
                         </div>
                       </div>
                     </div>

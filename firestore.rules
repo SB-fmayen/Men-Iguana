@@ -38,8 +38,7 @@ service cloud.firestore {
      * (request.auth.token.admin == true) or looking up a document in a roles collection.
      */
     function isAdmin() {
-      // Deny all administrative writes until a proper role system is implemented.
-      return false;
+      return request.auth != null && request.auth.token.admin == true;
     }
     
     /**

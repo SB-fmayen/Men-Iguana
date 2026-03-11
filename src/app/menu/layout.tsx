@@ -7,9 +7,11 @@ export default function MenuLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-background min-h-screen">
+    <div className="min-h-screen min-h-dvh flex flex-col bg-black">
       <MenuHeader />
-      {children}
+      <div className="flex-1 bg-background">
+        {children}
+      </div>
       <Footer />
     </div>
   );

@@ -136,7 +136,7 @@ class Pizza {
 export function PizzaPreloader() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pizzaRef = useRef<Pizza | null>(null);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number>(0);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

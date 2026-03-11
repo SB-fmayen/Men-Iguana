@@ -115,7 +115,19 @@ Organización visual de componentes por complejidad
 ### 2. **Service Layer**
 Lógica de negocio separada en servicios reutilizables
 
-### 3. **Container/Presentational** (Próximamente)
+### 3. **Repository Layer (Firestore cliente)**
+Acceso y transformación de datos de Firestore centralizado para evitar duplicación en pantallas.
+
+- `src/hooks/use-menu-collections.tsx`
+	- Hook compartido para leer `categories` y `menu_items` con queries memoizadas.
+- `src/repositories/menu-repository.ts`
+	- Selectores y mapeos de dominio (`buildCategoriesWithItemCount`, `getCategoryWithItemsByName`, `buildSearchDataSource`, etc.).
+- `src/lib/parent-subcategories.ts`
+	- Lógica compartida para construir tarjetas de subcategorías padre en público y admin.
+
+**Resultado:** componentes más delgados, menor acoplamiento con Firestore y cambios de reglas en un solo lugar.
+
+### 4. **Container/Presentational** (Próximamente)
 - **Containers**: Manejan lógica y datos
 - **Presentational**: Solo renderizan UI
 

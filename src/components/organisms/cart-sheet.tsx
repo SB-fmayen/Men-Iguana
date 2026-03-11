@@ -42,7 +42,7 @@ const buildWhatsAppMessage = (items: CartItem[], total: number) => {
   const lines = items
     .map(
       (item) =>
-        `${item.quantity}x - ${item.name}\nProducto: ${formatProductName(getCategoryNameFromId(item.id))}\nPrecio: ${formatWhatsAppPrice(item.price)}\nSubtotal: ${formatWhatsAppPrice(item.price * item.quantity)}`
+        `${item.quantity}x - ${item.name}\nProducto: ${formatProductName(item.categoryLabel ?? getCategoryNameFromId(item.id))}\nPrecio: ${formatWhatsAppPrice(item.price)}\nSubtotal: ${formatWhatsAppPrice(item.price * item.quantity)}`
     )
     .join('\n\n');
 

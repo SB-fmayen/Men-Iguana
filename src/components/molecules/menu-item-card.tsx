@@ -8,6 +8,7 @@ import { useCart } from '@/components/cart/cart-context';
 interface MenuItemCardProps {
   item: MenuItem;
   categoryName: string;
+  categoryLabel?: string;
 }
 
 const formatPrice = (price: number) => {
@@ -17,9 +18,10 @@ const formatPrice = (price: number) => {
   }).format(price);
 };
 
-export function MenuItemCard({ item, categoryName }: MenuItemCardProps) {
+export function MenuItemCard({ item, categoryName, categoryLabel }: MenuItemCardProps) {
   const { addItem } = useCart();
   const itemId = `${categoryName}::${item.name}`;
+  const itemCategoryLabel = categoryLabel ?? categoryName;
 
   return (
     <Card className="flex flex-col h-full rounded-lg border-2 border-black shadow-[6px_6px_0_#000] hover:shadow-[8px_8px_0_#000] transition-all duration-200 bg-white">
@@ -51,7 +53,7 @@ export function MenuItemCard({ item, categoryName }: MenuItemCardProps) {
         <Button
           type="button"
           className="mt-3 w-full bg-orange-600 hover:bg-orange-700"
-          onClick={() => addItem({ id: itemId, name: item.name, price: item.price })}
+          onClick={() => addItem({ id: itemId, name: item.name, price: item.price, categoryLabel: itemCategoryLabel })}
         >
           Agregar al carrito
         </Button>

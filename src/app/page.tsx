@@ -13,14 +13,15 @@ const CategoriesShowcase = dynamic(() => import('@/components/organisms/categori
 export default function Home() {
   return (
     <PageTransition>
-      <div className="bg-background min-h-screen">
+      <div className="min-h-dvh flex flex-col bg-black">
         <MenuHeader />
-        
-        {/* Banner Carousel */}
-        <BannerCarousel />
+        <div className="flex-1 bg-background">
+          {/* Banner Carousel */}
+          <BannerCarousel />
 
-        {/* Categories Showcase */}
-        <CategoriesShowcase />
+          {/* Categories Showcase */}
+          <CategoriesShowcase />
+        </div>
 
         <Footer />
       </div>
