@@ -80,40 +80,48 @@ export function getSubcategorySlug(value: string): SubcategorySlug | null {
 export function getSubcategoryMeta(
   name: string,
   parentSlug: ParentMenuSlug,
-  explicitSubcategory?: string
+  explicitSubcategory?: string,
+  parentCategory?: string
 ): {
   key: string;
   label: string;
   sortOrder: number;
 } | null {
+  // El campo subcategory explícito tiene prioridad total.
+  // Se usa su valor como label y se genera la key a partir de él.
+  if (explicitSubcategory?.trim()) {
+    const normalizedExplicit = normalizeText(explicitSubcategory);
+    const cleanKey = normalizedExplicit.replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    if (cleanKey) {
+      // Mantener sortOrder canónico para las subcategorías estándar
+      if (cleanKey === 'tradicionales') return { key: 'tradicionales', label: explicitSubcategory.trim(), sortOrder: 1 };
+      if (cleanKey === 'especialidades') return { key: 'especialidades', label: explicitSubcategory.trim(), sortOrder: 2 };
+      if (cleanKey === 'premium') return { key: 'premium', label: explicitSubcategory.trim(), sortOrder: 3 };
+      return { key: cleanKey, label: explicitSubcategory.trim(), sortOrder: 10 };
+    }
+  }
+
+  // Keyword matching solo para categorías legacy sin campo subcategory
   const normalizedName = normalizeText(name);
-  const normalizedExplicit = explicitSubcategory ? normalizeText(explicitSubcategory) : '';
 
-  const hasTradicional =
-    normalizedName.includes('tradicional') ||
-    normalizedName.includes('1 ingrediente') ||
-    normalizedExplicit.includes('tradicional') ||
-    normalizedExplicit.includes('1 ingrediente');
-  const hasEspecial =
-    normalizedName.includes('especial') ||
-    normalizedExplicit.includes('especial');
-  const hasPremium =
-    normalizedName.includes('premium') ||
-    normalizedExplicit.includes('premium');
-
-  if (hasTradicional) {
+  if (normalizedName.includes('tradicional') || normalizedName.includes('1 ingrediente')) {
     return { key: 'tradicionales', label: 'Tradicionales', sortOrder: 1 };
   }
 
-  if (hasEspecial) {
+  if (normalizedName.includes('especial')) {
     return { key: 'especialidades', label: 'Especialidades', sortOrder: 2 };
   }
 
-  if (hasPremium) {
+  if (normalizedName.includes('premium')) {
     return { key: 'premium', label: 'Premium', sortOrder: 3 };
   }
 
-  if (parentSlug === 'tortillas-de-harina' || parentSlug === 'shukos') {
+  // Fallback solo para categorías creadas desde el admin (tienen parentCategory explícito).
+  // Categorías legacy sin parentCategory no aparecen como tarjetas de subcategoría.
+  if (
+    (parentSlug === 'tortillas-de-harina' || parentSlug === 'shukos') &&
+    parentCategory?.trim()
+  ) {
     return { key: 'tradicionales', label: 'Tradicionales', sortOrder: 1 };
   }
 
@@ -133,6 +141,26 @@ export function getParentSlugsFromCategory(name: string, parentCategory?: string
     parentNormalized === 'enrollados'
   ) {
     return ['enrrollados'];
+  }
+
+  if (parentNormalized === 'cono pizza') {
+    return ['cono-pizza'];
+  }
+
+  if (parentNormalized === 'pizzas personales') {
+    return ['pizzas-personales'];
+  }
+
+  if (parentNormalized === 'pizzas grandes') {
+    return ['pizzas-grandes'];
+  }
+
+  if (parentNormalized === 'tortillas de harina') {
+    return ['tortillas-de-harina'];
+  }
+
+  if (parentNormalized === 'shukos') {
+    return ['shukos'];
   }
 
   const normalizedName = normalizeText(name);

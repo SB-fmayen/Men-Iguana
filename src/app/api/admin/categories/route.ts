@@ -11,8 +11,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
     }
 
-    const body = (await request.json()) as { name: string };
-    const { name } = body;
+    const body = (await request.json()) as { name: string; parentCategory?: string; subcategory?: string };
+    const { name, parentCategory, subcategory } = body;
 
     if (!name || !name.trim()) {
       return NextResponse.json({ error: 'El nombre de la categoría es requerido' }, { status: 400 });
@@ -31,14 +31,24 @@ export async function POST(request: NextRequest) {
       .replace(/\s+/g, '-')
       .replace(/[^\w\-]/g, '');
 
-    const docRef = await adminDb.collection('categories').add({
+    const newCategoryData: Record<string, unknown> = {
       name,
       slug,
       order: maxOrder + 1,
       isActive: true,
       createdAt: FieldValue.serverTimestamp(),
       updatedAt: FieldValue.serverTimestamp(),
-    });
+    };
+
+    if (parentCategory?.trim()) {
+      newCategoryData.parentCategory = parentCategory.trim();
+    }
+
+    if (subcategory?.trim()) {
+      newCategoryData.subcategory = subcategory.trim();
+    }
+
+    const docRef = await adminDb.collection('categories').add(newCategoryData);
 
     return NextResponse.json({
       ok: true,

@@ -39,6 +39,7 @@ export function buildParentSubcategoryCards<TSource>(
       label: string;
       sortOrder: number;
       sourceOrder: number;
+      hasExplicitSubcategory: boolean;
     }
   >();
 
@@ -48,10 +49,12 @@ export function buildParentSubcategoryCards<TSource>(
       return;
     }
 
-    const subcategoryMeta = getSubcategoryMeta(category.name, parentSlug, category.subcategory);
+    const subcategoryMeta = getSubcategoryMeta(category.name, parentSlug, category.subcategory, category.parentCategory);
     if (!subcategoryMeta) {
       return;
     }
+
+    const isExplicit = !!category.subcategory?.trim();
 
     const existing = cardsBySubcategory.get(subcategoryMeta.key);
     if (!existing) {
@@ -62,12 +65,19 @@ export function buildParentSubcategoryCards<TSource>(
         label: subcategoryMeta.label,
         sortOrder: subcategoryMeta.sortOrder,
         sourceOrder: category.order,
+        hasExplicitSubcategory: isExplicit,
       });
       return;
     }
 
+    // Prefer the source from a category with an explicit subcategory field
+    const shouldReplaceSource = isExplicit && !existing.hasExplicitSubcategory;
+
     cardsBySubcategory.set(subcategoryMeta.key, {
       ...existing,
+      source: shouldReplaceSource ? category.source : existing.source,
+      routeName: shouldReplaceSource ? category.routeName : existing.routeName,
+      hasExplicitSubcategory: existing.hasExplicitSubcategory || isExplicit,
       itemCount: existing.itemCount + category.itemCount,
     });
   });

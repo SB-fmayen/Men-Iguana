@@ -21,6 +21,9 @@ export function AdminMenuViewer() {
   const [newCategoryName, setNewCategoryName] = useState('');
   const [isCreating, setIsCreating] = useState(false);
   const [parentTitles, setParentTitles] = useState<Record<string, string>>({});
+  const [editingCategory, setEditingCategory] = useState<FirestoreMenuCategory | null>(null);
+  const [editingName, setEditingName] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
   const { categories: categoriesRaw, items: itemsRaw, isLoading } = useMenuCollections(firestore);
 
   const categories = useMemo(
@@ -108,6 +111,32 @@ export function AdminMenuViewer() {
       mounted = false;
     };
   }, []);
+
+  const handleEditCategory = async () => {
+    if (!editingCategory || !editingName.trim()) return;
+
+    setIsEditing(true);
+    try {
+      const response = await fetch(`/api/admin/categories/${editingCategory.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: editingName.trim() }),
+      });
+
+      if (!response.ok) {
+        const error = (await response.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(error?.error ?? 'Error al editar la categoría');
+      }
+
+      setEditingCategory(null);
+      setEditingName('');
+    } catch (error) {
+      console.error('Error editing category:', error);
+      alert(error instanceof Error ? error.message : 'Error al editar la categoría');
+    } finally {
+      setIsEditing(false);
+    }
+  };
 
   if (isLoading) {
     return <p className="text-sm text-muted-foreground">Cargando menú...</p>;
@@ -276,13 +305,19 @@ export function AdminMenuViewer() {
                             <Link href={`/admin/${encodeURIComponent(category.name)}`} className="font-bold text-base sm:text-lg hover:underline">
                               {category.name}
                             </Link>
-                            <Link
-                              href={`/admin/${encodeURIComponent(category.name)}`}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setEditingCategory(category);
+                                setEditingName(category.name);
+                              }}
                               className="p-1.5 rounded hover:bg-gray-100 transition-colors flex-shrink-0"
-                              title="Editar título"
+                              title="Editar nombre"
                             >
                               <Edit2 className="h-4 w-4 text-gray-700" />
-                            </Link>
+                            </button>
                           </div>
                           {category.isActive === false && (
                             <span className="text-xs bg-red-200 text-red-800 px-2 py-1 rounded whitespace-nowrap flex-shrink-0">
@@ -310,6 +345,38 @@ export function AdminMenuViewer() {
           )}
         </div>
       )}
+
+      {/* Edit Category Dialog */}
+      <Dialog open={!!editingCategory} onOpenChange={(open) => !open && setEditingCategory(null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Editar nombre de categoría</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="edit-category-name-viewer">Nombre</Label>
+              <Input
+                id="edit-category-name-viewer"
+                value={editingName}
+                onChange={(e) => setEditingName(e.target.value)}
+                onKeyPress={(e) => { if (e.key === 'Enter') handleEditCategory(); }}
+              />
+            </div>
+            <div className="flex gap-3 justify-end">
+              <Button variant="outline" onClick={() => setEditingCategory(null)} disabled={isEditing}>
+                Cancelar
+              </Button>
+              <Button
+                onClick={handleEditCategory}
+                disabled={isEditing || !editingName.trim()}
+                className="bg-orange-600 hover:bg-orange-700"
+              >
+                {isEditing ? 'Guardando...' : 'Guardar'}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Create Category Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
