@@ -99,16 +99,21 @@ export function AdminParentSubcategoriesPage({ parentSlug }: { parentSlug: Paren
     }
   };
 
-  // Guarda el nombre exactamente como el admin lo escribió, sin prefijos ni sufijos automáticos.
   const handleEditCategory = async () => {
     if (!editingCategory || !editingName.trim()) return;
 
     setIsEditing(true);
+
+    // Derivar la nueva etiqueta de subcategoría quitando el prefijo del título padre
+    const trimmedName = editingName.trim();
+    const prefixRegex = new RegExp(`^${parentTitle}\\s*[-–]?\\s*`, 'i');
+    const newSubcategory = trimmedName.replace(prefixRegex, '').trim() || trimmedName;
+
     try {
       const response = await fetch(`/api/admin/categories/${editingCategory.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: editingName.trim() }),
+        body: JSON.stringify({ name: trimmedName, subcategory: newSubcategory }),
       });
 
       if (!response.ok) {

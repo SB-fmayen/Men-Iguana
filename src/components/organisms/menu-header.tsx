@@ -10,12 +10,18 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { CartSheet } from '@/components/organisms/cart-sheet';
 import { PARENT_MENU_CONFIG, getParentSlugsFromCategory } from '@/lib/subcategory-routing';
+import { useFirestore } from '@/firebase';
+import { useMenuCollections } from '@/hooks/use-menu-collections';
+import { buildCategoriesWithItemCount } from '@/repositories/menu-repository';
 
 export function MenuHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [menuDialogOpen, setMenuDialogOpen] = useState(false);
   const router = useRouter();
+
+  const firestore = useFirestore();
+  const { categories, items } = useMenuCollections(firestore);
 
   const handleLinkClick = () => {
     setMobileMenuOpen(false);
@@ -29,19 +35,43 @@ export function MenuHeader() {
     }
   };
 
+  const categoriesSource = useMemo(() => {
+    const fromFirestore = buildCategoriesWithItemCount(categories, items, {
+      onlyActiveCategories: true,
+      onlyActiveItems: true,
+    });
+
+    if (fromFirestore.length > 0) {
+      return fromFirestore.map((cat) => ({
+        id: cat.id,
+        name: cat.name,
+        parentCategory: cat.parentCategory,
+        itemCount: cat.itemCount,
+      }));
+    }
+
+    // Fallback a datos estáticos mientras carga Firestore
+    return menuData.map((cat) => ({
+      id: cat.name,
+      name: cat.name,
+      parentCategory: cat.parentCategory,
+      itemCount: cat.items.length,
+    }));
+  }, [categories, items]);
+
   const menuCards = useMemo(() => {
     const parentCardsBySlug = new Map<string, { id: string; name: string; routeName: string; itemCount: number }>();
     const orderedCards: Array<{ id: string; name: string; routeName: string; itemCount: number }> = [];
 
-    menuData.forEach((category) => {
+    categoriesSource.forEach((category) => {
       const parentSlugs = getParentSlugsFromCategory(category.name, category.parentCategory);
 
       if (parentSlugs.length === 0) {
         orderedCards.push({
-          id: category.name,
+          id: category.id,
           name: category.name,
           routeName: `/menu/${encodeURIComponent(category.name)}`,
-          itemCount: category.items.length,
+          itemCount: category.itemCount,
         });
         return;
       }
@@ -55,19 +85,19 @@ export function MenuHeader() {
             id: `parent-${parentSlug}`,
             name: parentConfig.title,
             routeName: parentConfig.href,
-            itemCount: category.items.length,
+            itemCount: category.itemCount,
           };
           parentCardsBySlug.set(parentSlug, parentCard);
           orderedCards.push(parentCard);
           return;
         }
 
-        existing.itemCount += category.items.length;
+        existing.itemCount += category.itemCount;
       });
     });
 
     return orderedCards;
-  }, []);
+  }, [categoriesSource]);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-black backdrop-blur-xl border-b border-gray-800 shadow-lg">
