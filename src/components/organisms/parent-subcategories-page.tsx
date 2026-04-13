@@ -85,7 +85,7 @@ export function ParentSubcategoriesPage({ parentSlug }: { parentSlug: ParentMenu
                   <div className="flex flex-col h-full rounded-2xl border-4 border-black shadow-md hover:shadow-lg transition-all duration-200 bg-white overflow-hidden cursor-pointer group">
                     <div className="flex gap-4 p-6">
                       <div className="flex-1 flex flex-col justify-center">
-                        <h3 className="font-bold text-lg text-black mb-1">{`${parentTitle} ${card.label}`.toUpperCase()}</h3>
+                        <h3 className="font-bold text-lg text-black mb-1">{card.label.toUpperCase()}</h3>
                       </div>
                     </div>
                   </div>

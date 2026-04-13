@@ -19,6 +19,7 @@ export async function PATCH(
       name?: string;
       isActive?: boolean;
       subcategory?: string;
+      parentCategory?: string;
     };
 
     const updateData: Record<string, unknown> = {
@@ -53,6 +54,11 @@ export async function PATCH(
     // Update subcategory if provided
     if (body.subcategory !== undefined) {
       updateData.subcategory = body.subcategory.trim() || null;
+    }
+
+    // Update parentCategory if provided
+    if (body.parentCategory !== undefined) {
+      updateData.parentCategory = body.parentCategory.trim() || null;
     }
 
     const categoryRef = adminDb.collection('categories').doc(categoryId);

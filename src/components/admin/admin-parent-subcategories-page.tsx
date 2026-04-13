@@ -109,11 +109,13 @@ export function AdminParentSubcategoriesPage({ parentSlug }: { parentSlug: Paren
     const prefixRegex = new RegExp(`^${parentTitle}\\s*[-–]?\\s*`, 'i');
     const newSubcategory = trimmedName.replace(prefixRegex, '').trim() || trimmedName;
 
+    const parentCategoryTitle = PARENT_MENU_CONFIG[parentSlug].title;
+
     try {
       const response = await fetch(`/api/admin/categories/${editingCategory.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: trimmedName, subcategory: newSubcategory }),
+        body: JSON.stringify({ name: trimmedName, subcategory: newSubcategory, parentCategory: parentCategoryTitle }),
       });
 
       if (!response.ok) {
@@ -156,12 +158,14 @@ export function AdminParentSubcategoriesPage({ parentSlug }: { parentSlug: Paren
     }
   };
 
-  // Crea la subcategoría con el nombre exacto que el admin escribió.
+  // Crea la subcategoría con el mismo formato que usa el flujo de edición:
+  // name = "ParentTitle - SubcategoryLabel", subcategory = "SubcategoryLabel"
   const handleCreateSubcategory = async () => {
     if (!newSubcategoryName.trim()) return;
 
-    const name = newSubcategoryName.trim();
+    const subcategoryName = newSubcategoryName.trim();
     const parentCategoryTitle = PARENT_MENU_CONFIG[parentSlug].title;
+    const formattedName = `${parentTitle} - ${subcategoryName}`;
 
     setIsCreating(true);
     try {
@@ -169,9 +173,9 @@ export function AdminParentSubcategoriesPage({ parentSlug }: { parentSlug: Paren
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name,
+          name: formattedName,
           parentCategory: parentCategoryTitle,
-          subcategory: name,
+          subcategory: subcategoryName,
         }),
       });
 
